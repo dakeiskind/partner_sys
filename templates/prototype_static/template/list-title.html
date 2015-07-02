@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_listtitle = function() {
+		this._constructor();
+	};
+	t_listtitle.prototype._constructor = function() {
+		this._data = null;
+		this.data = function(value) {
+			if (value != undefined) {
+				this._data = value;
+				$("#t_listtitle .title-icon").css("background", "url(" + value.icon + ")");
+				$("#t_listtitle .title-name").html(value.title);
+				$("#t_listtitle .title-count").html(value.count);
+			}
+			return this._data;
+		};
+		
+		this._expanded = false;
+		this.expanded = function(value) {
+			if (value != undefined) {
+				this._expanded = value;
+				if (value) {
+					$("#t_listtitle .title-expand").css("background", "url(../imgs/expand-on.png) center no-repeat");
+				} else {
+					$("#t_listtitle .title-expand").css("background", "url(../imgs/expand-off.png) center no-repeat");
+				};
+			};
+			return this._expanded;
+		};
+	};
+	var t_ = new t_listtitle();
+</script>
+</head>
+
+<body>
+	<div id="t_listtitle" class="ste_listtitle clear" style="border-top:1px solid #fff; border-bottom:1px solid #e8e8e8; background:#f6f6f6; cursor:pointer;">
+    	<div style="float:left; padding:20px; padding-left:16px; text-shadow:0px 0px 1px rgba(30, 30, 30, 0.5); line-height:32px;">
+        	<b class="title-icon" style="display:inline-block; width:32px; height:32px; background:url(../imgs/icon1.png); margin-right:10px">&nbsp;</b>
+            <b class="title-name" style="height:32px; display:inline-block; font-size:20px; font-weight:normal; color:#333; margin-right:10px">招标公告</b>
+            <b style="height:32px; display:inline-block; font-size:16px; font-weight:normal; color:#999; margin-right:5px">当前共有</b>
+            <b class="title-count" style="height:32px; display:inline-block; font-size:28px; font-weight:normal; text-shadow:none; color:#009fec; font-family:Arial, Helvetica, sans-serif">3</b>
+            <b style="height:32px; display:inline-block; font-size:16px; font-weight:normal; color:#999; margin-left:5px;">个新公告</b>
+        </div>
+        <div style="float:right; padding:20px; padding-right:6px; line-height:32px; height:32px; width:70px;">
+        	<a class="title-options" href="javascript:void(0);" style="display:inline-block; background:url(../imgs/options.png) center no-repeat; width:32px; height:32px;">&nbsp;</a>
+        	<a class="title-expand" href="javascript:void(0);" style="display:inline-block; background:url(../imgs/expand-off.png) center no-repeat; width:32px; height:32px;">&nbsp;</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+		$("#t_listtitle .title-options").bind("click", function(event) {
+			event.stopImmediatePropagation();
+		});
+		
+		$("#t_listtitle").bind("click", function(event) {
+			$(t_).trigger("titleexpand");
+		});
+	</script>
+</body>
+</html>

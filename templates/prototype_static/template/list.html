@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_list = function() {
+		this._constructor();
+	};
+	t_list.prototype._constructor = function() {
+		this._data = null;
+		this.data = function(value) {
+			if (value != undefined) {
+				this._data = value;
+				t_list_title.data(value.title);
+				var $items = $("#t_list .list_items");
+				$items.html("");
+				if (value.items) {
+					for (var i = 0; i < value.items.length; i++) {
+						var item = appendTemplate($items, "t_list_item_" + i, "list-item.html");
+						item.data(value.items[i]);
+						$(item).bind("itemselected", item, function(event) {
+							t_.selecteditem(event.data);
+						});
+					};
+				};
+			};
+			return this._data;
+		};
+		
+		this._expanded = false;
+		this.expanded = function(value) {
+			if (value != undefined) {
+				this._expanded = value;
+				if (value) {
+					$("#t_list .list_container").animate({"height":$("#t_list .list_items").height() + "px"});
+				} else {
+					$("#t_list .list_container").animate({"height":0});
+				};
+				t_list_title.expanded(value);
+			};
+			return this._expanded;
+		};
+		
+		this._selecteditem = null;
+		this.selecteditem = function(value) {
+			if (value != undefined) {
+				if (this._selecteditem) {
+					this._selecteditem.selected(false);
+				};
+				this._selecteditem = value;
+				if (value) {
+					value.selected(true);
+				};
+			};
+			return this._selecteditem;
+		};
+	};
+	var t_ = new t_list();
+</script>
+</head>
+
+<body>
+	<div id="t_list" class="ste_list">
+    	<div id="t_list_title" template="list-title.html"></div>
+        <div class="list_container" style="height:0; overflow:hidden; position:relative;">
+        	<div class="list_items" style="position:absolute; bottom:0; width:100%;"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+		$(t_list_title).bind("titleexpand", function(event) {
+			t_.expanded(!t_._expanded);
+		});
+	</script>
+</body>
+</html>

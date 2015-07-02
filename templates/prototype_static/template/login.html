@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_login = function() {
+		this._construction();
+	};
+	t_login.prototype._construction = function() {
+		this._registCallback = null;
+		this._loginCallback = null;
+		
+		this._data = null;
+		this.data = function(value) {
+			if (value !== undefined) {
+				this._data = value;
+				if (value.regist) {
+					this._registCallback = value.regist;
+				};
+				if (value.login) {
+					this._loginCallback = value.login;
+				};
+			};
+			return this._data;
+		};
+		
+		this.regist = function() {
+			if (this._registCallback) this._registCallback();
+		};
+		this.login = function() {
+			if (this._loginCallback) this._loginCallback(t_ipt_name.getText(), t_ipt_password.getText());
+			console.log(t_ipt_name.getText(), t_ipt_password.getText());
+		};
+	};
+	var t_ = new t_login();
+</script>
+</head>
+	
+<body id="t_login" style="background:#eee">
+	<div style="width:310px; height:280px; background:#fff;">
+    	<div class="clear" style="text-align:center; vertical-align:middle; font-size:18px; margin-bottom:35px;">
+            <a href="javascript:void(0);" style="width:50%; border-top:3px solid #009fec; float:left; padding:10px 0; text-shadow:0px 0px 1px #666; color:#666">登录</a>
+            <a class="regist" href="javascript:t_.regist();" style="width:50%; border-top:3px solid #eee; float:left; padding:10px 0; background:#f3f3f3; text-shadow:0px 0px 1	px #666; color:#666">注册</a>
+		</div>
+        <div style="width:250px; margin:auto; font-size:14px;">
+        	<div style="margin:15px auto; background:#f2f2f2; border-top:1px solid #e1e1e1; border-left:1px solid #e1e1e1; height:35px;">
+            	<div id="t_ipt_name" template="input.html" style="margin-top:5px;"></div>
+            </div>
+            <div style="margin:10px auto; background:#f2f2f2; border-top:1px solid #e1e1e1; border-left:1px solid #e1e1e1; height:35px;">
+            	<div id="t_ipt_password" template="input.html" style="margin-top:5px;"></div>
+            </div>
+            <div style="margin:10px auto;">
+            	<a href="javascript:void(0);" style="color:#48b0ef; margin:15px auto; ">忘记密码？</a>
+            </div>
+            <div style="margin:15px auto;">
+            	<a class="login" href="javascript:t_.login();" style="color:#fff; margin:15px auto; display:block; padding:8px; text-align:center; background:#009fec; font-size:18px;">登录</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+		t_ipt_name.setHintText("用户名");
+		t_ipt_password.setPasswordState(true);
+		t_ipt_password.setHintText("密码");
+	</script>
+</body>
+</html>

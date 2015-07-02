@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" /> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_buttongroup = function() {
+		this._constructor();
+	};
+	t_buttongroup.prototype._constructor = function() {
+		this._data = null;
+		this.getData = function() {
+			return this._data;
+		};
+		this.setData = function(value) {
+			this._data = value;
+			$("#t_buttongroup").html("");
+			if (!value || !value.length) return;
+			for (var i = 0; i < value.length; i++) {
+				var data = value[i];
+				if (data == undefined) continue;
+				var $li = $("<li style=\"display:inline; margin:auto 2px;\"></li>");
+				$("#t_buttongroup").append($li);
+				var item = appendTemplate($li, "t_button" + i, "button.html", "inline");
+				item.setData(data);
+				$(item).bind("click", this, function(e, data) {
+					if (data.callback != undefined) data.callback(e.data, data);
+				});
+				item.setParentExecute(true);
+			};
+		};
+		
+		this._radiotype = false;
+		this.getRadioType = function() {
+			return this._radiotype;
+		};
+		this.setRadioType = function(value) {
+			this._radiotype = value;
+		};
+	};
+	
+	var t_ = new t_buttongroup;
+</script>
+</head>
+<body>
+	<div id="wrapper" style="margin-top:50px">
+		<ul id="t_buttongroup" class="ste_buttongroup clear" style="text-align:center;"></ul>
+    </div>
+</body>
+</html>

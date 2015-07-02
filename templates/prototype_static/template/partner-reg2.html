@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_parreg2 = function() {
+		this._construction();
+	};
+	t_parreg2.prototype._construction = function() {
+		this._finishCallback = null;
+		
+		this._data = null;
+		this.data = function(value) {
+			if (value !== undefined) {
+				this._data = value;
+				if (value.finish) this._finishCallback = value.finish;
+			};
+			return this._data;
+		};
+		
+		this.finish = function() {
+			if (this._finishCallback) {
+				this._finishCallback({base:t_partner_reg_param1.getParams(), address:t_partner_reg_param2.getParams(), contact:t_partner_reg_param3.getParams(), company:t_partner_reg_param4.getParams()});
+			};
+		};
+	};
+	var t_ = new t_parreg2();
+</script>
+</head>
+
+<body style="background:#eee">
+	<div id="t_partner_reg1" style="background:#fff; font-size:12px;">
+    	<div class="clear" style="border-bottom:1px solid #ebebeb; padding:8px 18px;">
+        	<span style="font-size:18px;">注册合作伙伴</span>
+            <a href="javascript:void(0);" style="color:#48b0ef; margin:4px auto; font-size:14px; float:right;">系统登录</a>
+        </div>
+        <div style="padding:20px 40px;;">
+        	<span style="color:#009fec; padding-left:32px; margin-bottom:10px; display:block;">公司基本信息</span>
+            <div id="t_partner_reg_param1" template="params.html" style=" border-bottom:1px double #ebebeb; padding-bottom:20px;"></div>
+        </div>
+        <div style="padding:20px 40px;;">
+        	<span style="color:#009fec; padding-left:32px; margin-bottom:10px; display:block;">联系信息</span>
+            <div id="t_partner_reg_param2" template="params.html" style=" border-bottom:1px double #ebebeb; padding-bottom:20px;"></div>
+        </div>
+        <div style="padding:20px 40px;;">
+        	<span style="color:#009fec; padding-left:32px; margin-bottom:10px; display:block;">主要联系人信息</span>
+            <div id="t_partner_reg_param3" template="params.html" style=" border-bottom:1px double #ebebeb; padding-bottom:20px;"></div>
+        </div>
+        <div style="padding:20px 40px;;">
+        	<span style="color:#009fec; padding-left:32px; margin-bottom:10px; display:block;">公司简介</span>
+            <div id="t_partner_reg_param4" template="params.html" style=" border-bottom:1px double #ebebeb; padding-bottom:20px;"></div>
+        </div>
+        <div class="clear" style="padding:30px 50px;">
+        	<a href="javascript:t_.finish();" style="padding:10px 40px; background:#009fec; color:#fff; font-size:16px; float:right">完成</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+		t_partner_reg_param1.setData(
+			{props:{col:2, titleWidth:170, valueWidth:250}, datas:[
+				{title:"公司中文名称", type:"input", required:true},
+				{title:"公司英文名称", type:"input", required:true},
+				{title:"法人代表", type:"input", required:true},
+				{title:"经营范围", type:"input", required:true},
+				{title:"公司成立时间", type:"date", required:true},
+				{title:"注册资金", type:"input", required:true},
+				{title:"营业执照注册号", type:"input", required:true},
+				{title:"营业执照扫描件", type:"file", required:true},
+				{title:"税务登记号", type:"input", required:true},
+				{title:"税务登记扫描件", type:"file", required:true},
+				{title:"组织机构代码", type:"input", required:true},
+				{title:"组织机构代码证扫描件", type:"file", required:true},
+				{title:"员工人数", type:"input", required:true}
+			]}
+		);
+		t_partner_reg_param2.setData(
+			{props:{col:2, titleWidth:170, valueWidth:250}, datas:[
+				{title:"公司地址", type:"input", col:2},
+				{title:"网址", type:"input"},
+				{title:"电话", type:"input"},
+				{title:"传真", type:"input"},
+				{title:"邮箱", type:"input"}
+			]}
+		);
+		t_partner_reg_param3.setData(
+			{props:{col:2, titleWidth:170, valueWidth:250}, datas:[
+				{title:"姓名", type:"input", required:true},
+				{title:"职务", type:"input", required:true},
+				{title:"固定电话", type:"input", required:true},
+				{title:"移动电话", type:"input", required:true},
+				{title:"身份证号", type:"input", required:true},
+				{title:"邮箱", type:"input", required:true},
+				{title:"身份证证扫描件", type:"file", required:true}
+			]}
+		);
+		t_partner_reg_param4.setData(
+			{props:{col:2, titleWidth:170, valueWidth:250}, datas:[
+				{title:"简介", type:"text", col:2},
+				{title:"典型案例", type:"text", col:2}
+			]}
+		);
+    </script>
+</body>
+</html>

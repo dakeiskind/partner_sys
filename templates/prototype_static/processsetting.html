@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/storm_lib_template.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/storm_lib_template.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/neterror.js"></script>
+<style>
+	.b-item {
+		float:left;
+	}
+	.ste_mailbox_title a {
+		color:#333;
+		line-height:24px;
+	}
+	.ste_mailbox_title.in a.in, .ste_mailbox_title.send a.send, .ste_mailbox_title.temp a.temp {
+		color:#009fec;
+	}
+</style>
+</head>
+
+<body>
+	<div id="wrapper" style="width:auto;">
+    	<div id="h" template="template/header.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
+        <div style="background:#eee; padding:20px 0; min-height:480px;">
+        	<div class="clear" style="width:1250px; margin:0 auto">
+            	<div style="float:left;">
+                	<div id="nl" template="template/navlist.html"></div>
+                </div>
+            	<div style="float:right; width:1164px;">
+                	<div id="mt" style="margin-top:1px;" css="ste_mailbox_title send">
+                    	<div class="ste_mailbox_title in" style="height:51px; line-height:51px; vertical-align:middle; background:#fff; font-size:14px;">
+                            <ul style="float:left; line-height:51px; margin-left:10px; font-size:14px;">
+                                <li style="display:inline-block; padding:0 10px; border-right:1px solid rgba(0, 0, 0, 0.2)"><a class="temp" href="partnerinitiate.html">合作伙伴准入发起</a></li>
+                                <li style="display:inline-block; padding:0 10px; border-right:1px solid rgba(0, 0, 0, 0.2)"><a class="temp" href="partnerapproved.html">合作伙伴准入审批</a></li>
+                                <li style="display:inline-block; padding:0 10px;"><a class="in" href="javascript:void(0);">审批流程设置</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div class="clear" style="margin-top:10px; height:102px; line-height:82px; background:#fff;">
+                    	<table style="width:100%; table-layout:fixed; font-size:14px; color:#999">
+                        	<colgroup>
+                            	<col width="40"/>
+                            	<col width="60"/>
+                            	<col width="40"/>
+                            	<col width="40"/>
+                            	<col width="60"/>
+                            	<col width="40"/>
+                            </colgroup>
+                        	<tr>
+                            	<td style="text-align:right; padding:12px;">新增审批流程</td>
+                                <td><div id="newprocess" template="template/input.html" style="background:#f2f2f2; padding:6px 5px; border:1px solid #e1e1e1; border-width:1px 0 0 1px"></div></td>
+                                <td style="line-height:24px;"><a href="javascript:void(0);" style="float:right; color:#fff; margin:15px 30px 15px 10px; padding:8px 40px; text-align:center; background:#009fec; font-size:18px;">提交</a></td>
+                            	<td style="text-align:right; padding:12px;">当前审批流程</td>
+                                <td><div id="currprocess" template="template/select.html" style="background:#f2f2f2; padding:6px 5px; border:1px solid #e1e1e1; border-width:1px 0 0 1px"></div></td>
+                                <td style="line-height:24px;"><a href="javascript:void(0);" style="float:right; color:#fff; margin:15px 30px 15px 10px; padding:8px 40px; text-align:center; background:#009fec; font-size:18px;">保存</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin-top:10px; background:#fff;">
+                    	<div id="table" template="template/table.html"></div>
+	                    <div style="height:63px; line-height:63px; padding:0 20px;">
+                        	<a href="javascript:void(0);" style="color:#009efc; font-size:18px;">删除</a>
+                            <ul style="border-bottom:1px solid #ebebeb; float:right; font-size:14px;">
+	                            <li style="display:inline-block;"><a class="selected" href="javascript:void(0);"><div style="width:30px; height:65px; background:url(imgs/prev.png) center no-repeat">&nbsp;</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666; font-weight:bold; cursor:default;"><div style="padding:5px; color:#009efc;">1</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">2</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">3</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">4</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">5</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">6</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">7</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">8</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">9</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">10</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:5px;">11</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:5px;">12</div></a></li>
+                                <li style="display:inline-block;"><a class="selected" href="javascript:void(0);"><div style="width:30px; height:65px; background:url(imgs/next.png) center no-repeat">&nbsp;</div></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div id="f" template="template/footer.html"></div>
+	</div>
+    <script type="text/javascript">registTemplate();</script>
+    <script type="text/javascript">
+		var tableData = {
+			head:[
+				{type:"check", field:"checked"},
+				{text:"序号", field:"id", textAlign:"center"},
+				{text:"审批人", field:"name", textAlign:"center", width:500},
+				{text:"操作", field:"buttons", textAlign:"center", type:"buttons", width:220}
+			],
+			data:[
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]},
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]},
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]},
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]},
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]},
+				{checked:false, id:"00001", name:"张三", buttons:[{title:"选择审批人", href:""}]}
+			]
+		};
+		table.setData(tableData);
+    </script>
+</body>
+</html>
