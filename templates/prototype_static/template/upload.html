@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_upload = function() {
+		this._constructor();
+	};
+	t_upload.prototype._constructor = function() {
+		this._files = [];
+		this._block = null;
+		
+		this._fileId = 0;
+		this.getId = function() {
+			return this._fileId ++;
+		};
+		
+		this._addFile = function(id, name, size, percent, remove) {
+			if (remove == undefined) remove = true;
+			if (percent == undefined) percent = 0;
+			var $ul = $("#t_upload ul");
+			var $li = $("<li style='display:inline; margin-right:30px;'></li>").appendTo($ul);
+			this._block = appendTemplate($li, "t_file" + this.getId(), "upload-block.html", "", "", "display:inline-block; *display:inline; *zoom:1; width:300px;");
+			if (percent == 100) {
+				this._block.hideProgress();
+			};
+			var data = {id:id, name:name, size:size, percent:percent, preview:this._previewAction, remove:remove};
+			this._block.setData(data);
+			if (this._data) {
+				if (this._data.files == undefined) this._data.files = [];
+				this._data.files.push(data);
+			};
+			$(this._block).bind("closeclick", this, function(e, block) {
+				e.data._removeFile(block);
+			});
+			this._files.push(this._block);
+			return data;
+		};
+		
+		this._removeFile = function(block) {
+			var index = this._files.indexOf(block);
+			this._files.splice(index, 1);
+			if (this._data.files) {
+				this._data.files.splice(index, 1);
+			};
+			$("#t_upload ul li").eq(index).remove();
+			this._checkCount();
+		};
+		
+		this.removeFiles = function() {
+			this._files = [];
+			if (this._data) this._data.files = [];
+			this._block = null;
+			$("#t_upload ul").html("");
+			this._checkCount();
+		};
+		
+		this._checkCount = function(count) {
+			if (count == undefined) count = this._files.length;
+			if (count >= this._count) {
+				$("#t_upload .upload_btn").hide();
+			} else  {
+				$("#t_upload .upload_btn").show();
+			}
+		};
+		
+		this.setFiles = function(files) {
+			this._files = [];
+			if (this._data) this._data.files = [];
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				this._addFile(file.id, file.name, file.size, 100, file.remove);
+			};
+			this._checkCount(files.length);
+		};
+		this.getFiles = function() {
+			var files = [];
+			for (var i = 0; i < this._files.length; i++) {
+				var block = this._files[i].getData();
+				files.push({id:block.id, name:block.name, size:block.size, remove:block.remove});
+			};
+			return files;
+		};
+		
+		this._action = "";
+		this.getAction = function() {
+			return this._action;
+		};
+		this.setAction = function(value) {
+			this._action = value;
+			$("#t_upload form").attr("action", value);
+		};
+		
+		this._previewAction = "";
+		this.getPreviewAction = function() {
+			return this._previewAction;
+		};
+		this.setPreviewAction = function(value) {
+			this._previewAction = value;
+		};
+		
+		this._count = 4;
+		this.getCount = function() {
+			return this._count;
+		};
+		this.setCount = function(value) {
+			this._count = value;
+			this._checkCount();
+		};
+		
+		this._size = 20 * 1024 * 1024;
+		this.getSize = function() {
+			return this._size;
+		};
+		this.setSize = function(value) {
+			this._size = value;
+		};
+		
+		this._checkSize = function(size) {
+			if (size >= this._size) return false;
+			return true;
+		};
+		this._getSizeFormat = function() {
+			return "";
+			var size = this._size;
+			if (size == undefined || size == null) return "";
+			var unit = "";
+			if (size <= 1000) {
+				unit = "B";
+			} else if (size <= 1000 * 1024) {
+				size = Math.round(size / 1024);
+				unit = "K"
+			} else if (size <= 1000 * 1024 * 1024) {
+				size = Math.round(size / 1024 / 1024);
+				unit = "M";
+			} else if (size <= 1000 * 1024 * 1024 * 1024) {
+				size = Math.round(size / 1024 / 1024 / 1024);
+				unit = "G";
+			}
+			return size + unit;
+		};
+		
+		this._data = null;
+		this.getData = function() {
+			if (!this._data) this._data = {};
+			//this._data.files = this._files;
+			return this._data;
+		};
+		this.setData = function(value) {
+			if (!value) return;
+			this._data = value;
+			value.uploading = false;
+			//this._data.uploads = this._files;
+			this.setAction(value.action);
+			this.setPreviewAction(value.preview);
+			if (value.count != undefined) this.setCount(value.count);
+			if (value.size != undefined) this.setSize(value.size);
+			if (value.files != undefined) this.setFiles(value.files);
+		};
+		
+		this._upload = function(name, size) {
+			$("#t_upload .upload_btn").hide();
+			this._addFile("", name, size, 0);
+			$("#t_upload form").submit();
+		};
+		
+		this._repairUpload = function() {
+			$("#t_upload .upload_btn").html('上传文件<input type="file" name="file"/>');
+			
+			$("#t_upload .upload_btn input").bind("change", this, function(e) {
+				if (this.files && this.files.length) {
+					var size = this.files[0].size;
+					if (!e.data._checkSize(size)) {
+						alert("文件超过大小限制(" + e.data._getSizeFormat() + ")");
+						return;
+					};
+				};
+				var name = $(this).val().match(/[^\\]*$/)[0].match(/[^\/]*$/)[0];
+				e.data._upload(name, size);
+				e.data.setUploading(true);
+			});
+		};
+		
+		this._uploadover = function(id) {
+			if (!this._block) return;
+			var block = this._block.getData();
+			var data = {id:id, name:block.name, size:block.size}
+			if (!this._data.files) this._data.files = [];
+			this._data.files.push(data);
+		};
+		
+		this._uploading = false;
+		this.getUploading = function() {
+			return this._uploading;
+		};
+		this.setUploading = function(value) {
+			this._uploading = value;
+			if (this._data) this._data.uploading = value;
+			if (this._block) {
+				if (value === true) {
+					this._block.showProgress();
+				} else {
+					this._block.hideProgress();
+				};
+			};
+		};
+	};
+	
+	var t_ = new t_upload();
+</script>
+</head>
+
+<body>
+	<div id="wrapper" style="width:800px;">
+        <div id="t_upload" class="ste_upload">
+            <ul style="width:100%;"></ul>
+            <form action="" method="post" enctype="multipart/form-data">
+                <a href="javascript:void(0);" class="upload_btn" style="overflow:hidden;">上传文件<input type="file" name="file"/></a>
+            </form>
+            <script type="text/javascript">
+				t_.setData(t_._data);
+				var options = { 
+					beforeSend: function() {
+					},
+					uploadProgress: function(event, position, total, percent) {
+						t_._block.setPercent(percent);
+					},
+					success: function() {
+					},
+					complete: function(response) {
+						t_._block.getData().id = response.responseText;
+						t_._block.setPercent(100);
+						t_._checkCount();
+						t_._uploadover(response.responseText);
+						t_._repairUpload();
+						t_.setUploading(false);
+					},
+					error: function() {
+					}
+				};
+				//alert($("#t_upload form").ajaxForm)
+				$("#t_upload form").ajaxForm(options);
+			
+                $("#t_upload .upload_btn input").bind("change", function(e) {
+					if (this.files && this.files.length) {
+						var size = this.files[0].size;
+						if (!t_._checkSize(size)) {
+							alert("文件超过大小限制(" + t_._getSizeFormat() + ")");
+							return;
+						};
+					};
+                    var name = $(this).val().match(/[^\\]*$/)[0].match(/[^\/]*$/)[0];
+					t_._upload(name, size);
+                });
+            </script>
+        </div>
+    </div>
+</body>
+</html>

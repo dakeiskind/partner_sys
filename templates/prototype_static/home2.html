@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/storm_lib_template.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/storm_lib_template.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/neterror.js"></script>
+<style>
+	.b-item {
+		float:left;
+	}
+</style>
+</head>
+
+<body>
+	<div id="wrapper" style="width:auto;">
+    	<div id="h" template="template/header.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
+        <div style="background:#eee; padding:20px 0; min-height:480px;">
+        	<div class="clear" style="width:1250px; margin:0 auto">
+            	<div style="float:left; width:570px;">
+                	<div id="b1" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b2" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b3" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b4" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b5" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b6" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b7" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b8" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b9" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b10" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b11" template="template/bar-item.html" class="b-item"></div>
+                    <div id="b12" template="template/bar-item.html" class="b-item"></div>
+                </div>
+            	<div style="float:right; width:670px;">
+                	<div id="a" template="template/affair.html" style="margin-bottom:10px;"></div>
+                	<div id="a" template="template/announcement2.html"></div>
+                </div>
+            </div>
+        </div>
+    	<div id="f" template="template/footer.html"></div>
+	</div>
+    <script type="text/javascript">registTemplate();</script>
+    <script type="text/javascript">
+		b1.image("../imgs/func1.png");
+		b2.image("../imgs/func2.png");
+		b3.image("../imgs/func3.png");
+		b4.image("../imgs/func4.png");
+		b5.image("../imgs/func5.png");
+		b6.image("../imgs/func6.png");
+		b7.image("../imgs/func7.png");
+		b8.image("../imgs/func8.png");
+		b9.image("../imgs/func9.png");
+		b10.image("../imgs/func10.png");
+		b11.image("../imgs/funcp.png");
+		b1.title("物流协同");
+		b2.title("公告管理");
+		b3.title("分级分等管理");
+		b4.title("交易查询");
+		b5.title("准入管理");
+		b6.title("信息管理");
+		b7.title("物料与产品协同");
+		b8.title("工程施工监理协同");
+		b9.title("合作伙伴管理");
+		b10.title("系统管理");
+		b11.title("<font style='color:#e4e4e4;'>添加</font>");
+		
+		$("#b5").bind("click", function(event) {
+			window.location.href = "partnerinitiate.html";
+		});
+		$("#b6").bind("click", function(event) {
+			window.location.href = "partnermanagement.html";
+		});
+		$("#b9").bind("click", function(event) {
+			window.location.href = "partnerverification.html";
+		});
+    </script>
+</body>
+</html>

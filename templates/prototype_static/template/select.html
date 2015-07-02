@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" /> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title>Untitled Document</title>
+<script>
+	var t_select = function() {
+		this._constructor();
+	};
+	t_select.prototype._constructor = function() {
+		this._callback = null;
+		this._popupmenu = null;
+		
+		this._data = null;
+		this.getData = function() {
+			return this._data;
+		};
+		this.setData = function(value) {
+			if (!this._popupmenu) {
+				this._popupmenu = appendTemplate($(document.body), "t_selectmenu", "popupmenu.html");
+				$(this._popupmenu).bind("itemselected", this, function(e, data) {
+					e.data.setSelectedIndex(e.data._data.indexOf(data));
+				});
+			};
+			
+			this._data = value;
+			if (value && value.length) {
+				for (var i = 0; i < value.length; i++) {
+					//value[i].callback = this.callback;
+					if (value[i].selected) {
+						this.setSelectedIndex(i);
+					}
+				};
+				this._popupmenu.setData(value);
+			} else {
+				this._popupmenu.setData(null);
+			}
+		};
+		var own = this;
+		this.callback = function(item) {
+			$("#t_select > span > span").html(item.title);
+			own.showMenu(false);
+		};
+		
+		this._dropMenuVisible = false;
+		
+		this.showMenu = function(visible) {
+			if (this._dropMenuVisible == visible) return;
+			this._dropMenuVisible = visible;
+			if (visible) {
+				var offset = $("#t_ipt input").offset();
+				this._popupmenu.setWidth($("#t_ipt input").width() - 2);
+				this._popupmenu.openAt(offset.left, offset.top + $("#t_select").height() - 2);
+			} else {
+				this._popupmenu.close();
+			}
+		};
+		
+		this._selectedIndex = -1;
+		this.getSelectedIndex = function() {
+			return this._selectedIndex;
+		};
+		this.setSelectedIndex = function(index) {
+			
+			if (!this._data) this._selectedIndex = -1;
+
+			if (index >= this._data.length) {
+				this._selectedIndex = this._data.length - 1;
+			};
+			this._selectedIndex = index;
+			
+			//if (data.callback) data.callback(data);
+			
+			if (this._selectedIndex < 0) {
+				$("#t_select > span > span").html("");
+				this._data[this._selectedField] = this.getSelectedItem();
+			} else {
+				$("#t_select > span > span").html(this._data[this._selectedIndex].title);
+				t_ipt.setText(this._data[this._selectedIndex].title, -1);
+				this._data[this._selectedField] = this.getSelectedItem();
+			};
+			
+			var data = this.getSelectedItem();
+			$(this).trigger("selectchanged", data);
+			if (data && data.callback) data.callback(data);
+		};
+		
+		this.setSelectedItem = function(item) {
+			if (!this._data) return;
+			var index = this._data.indexOf(item);
+			if (index == -1 && this._editable == true) {
+				if (item) this.setText(item.title, -1);
+			} else this.setSelectedIndex(index);
+		};
+		this.getSelectedItem = function() {
+			if (this._selectedIndex == -1) {
+				if (this._editable && t_ipt.getText() !== "") {
+					return {title:t_ipt.getText(), _original:false};
+				} else {
+					return null;
+				}
+			};
+			return this._data[this._selectedIndex];
+		};
+		
+		this.setWidth = function(width) {
+			$("#t_select > span > span").width(width);
+		};
+		
+		this._text = "";
+		this.setText = function(value) {
+			this._text = value;
+			t_ipt.setText(value, -1);
+			this.setSelectedIndex(-1);
+		};
+		
+		this._selectedField = "selected";
+		this.getSelectedField = function() {
+			return this._selectedField;
+		};
+		this.setSelectedField = function(value) {
+			this._selectedField = value;
+			if (this._data) this._data[value] = this.getSelectedItem();
+		};
+		
+		this._editabled = false;
+		this.getEditabled = function() {
+			return this._editable;
+		};
+		this.setEditable = function(value) {
+			this._editable = value;
+			if (value) {
+				$("#t_ipt").show();
+				$("#t_select > span > span").hide();
+			} else {
+				$("#t_select > span > span").show();
+				$("#t_ipt").hide();
+			};
+		};
+		
+		this._disable = false;
+		this.getDisable = function() {
+			return this._disable;
+		};
+		this.setDisable = function (value) {
+			this._disable = value;
+			if (value) {
+				$("#t_select > span").addClass("disable");
+			} else {
+				$("#t_select > span").removeClass("disable");
+			};
+		};
+	}
+	var t_ = new t_select();
+</script>
+</head>
+
+<body>
+	<div id="wrapper" style="margin-top:50px;">
+		<div id="t_select" class="ste_select">
+			<span class="select-up">
+				<span class="select-up-text"></span>
+                <div id="t_ipt" template="input.html" css="ste_input select-input" style="height:100%; display:none;"></div>
+				<div class="select-up-expand"><b></b></div>
+                <div class="select-up-search" style="display:none;"><b></b></div>
+			</span>
+		</div>
+		<script>
+			t_.setEditable(t_._editable);
+			if (t_._selectedIndex >= 0) {
+				$("#t_select > span > span").html(t_._data[t_._selectedIndex].title);
+			}
+			$(t_ipt).bind("textchanged", function(e) {
+				t_.setSelectedIndex(-1);
+			});
+			$("#t_select .select-up-expand").bind("click", function(e) {
+				if (t_.getDisable()) return;
+				t_.showMenu(!t_._dropMenuVisible);
+				e.stopImmediatePropagation();
+			});
+			$(document).bind("click", function(e) {
+				t_.showMenu(false);
+			});
+		</script>
+	</div>
+</body>
+</html>

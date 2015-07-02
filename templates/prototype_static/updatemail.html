@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/storm_lib_template.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/storm_lib_template.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/neterror.js"></script>
+<style>
+	.b-item {
+		float:left;
+	}
+</style>
+</head>
+
+<body>
+	<div id="wrapper" style="width:auto;">
+    	<div id="h" template="template/header.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
+        <div style="background:#eee; padding:20px 0; min-height:480px;">
+        	<div class="clear" style="width:1250px; margin:0 auto">
+            	<div style="float:left;">
+                	<div id="nl" template="template/navlist.html"></div>
+                </div>
+            	<div style="float:right; width:1164px;">
+                	<div id="mt" template="template/box-title.html" style="margin-top:1px;" css="ste_mailbox_title"></div>
+                    <div style="margin-top:10px; background:#fff; height:505px; padding:30px;">
+                    	<div id="mc" template="template/mail-content.html"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div id="f" template="template/footer.html"></div>
+	</div>
+    <script type="text/javascript">registTemplate();</script>
+    <script type="text/javascript">
+		mc.data({
+			address:"中国惠普有限公司    张天际",
+			theme:"RE：信息文件申请 ",
+			content:"这是以前写过的部分...",
+		});
+    </script>
+</body>
+</html>

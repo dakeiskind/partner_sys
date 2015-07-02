@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" /> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_button = function() {
+		this._constructor();
+	};
+	t_button.prototype._constructor = function() {
+		this._data = null;
+		this._enabled = true;
+		
+		this._parentExecute = false;
+		this.getParentExecute = function() {
+			return this._parentExecute;
+		};
+		this.setParentExecute = function(value) {
+			this._parentExecute = value;
+		};
+		
+		this._disabledTitle = "处理中...";
+		
+		this.setDisable = function(title) {
+			this._disabledTitle = title;
+			this.setEnabled(false);
+		};
+		
+		this.getEnabled = function() {
+			return this._enabled;
+		};
+		this.setEnabled = function(value) {
+			if (this._enabled == value) return;
+			this._enabled = value;
+			if (this._data) {
+				this._data.enabled = value;
+			};
+			var $button = $("#t_button");
+			if (value) {
+				if (this._data && this._data.title) {
+					$button.html(this._data.title);
+				};
+				$button.removeClass("button-disabled");
+			} else {
+				if (this._disabledTitle) {
+					$button.html(this._disabledTitle);
+				};
+				$button.addClass("button-disabled");
+			};
+		};
+		this.getTitle = function() {
+			return $("#t_button").html();
+		};
+		this.setTitle = function(value) {
+			$("#t_button").html(value);
+		};
+		this.getData = function() {
+			return this._data;
+		};
+		this.setData = function(value) {
+			this._data = value;
+			var $button = $("#t_button");
+			if ($button.get(0) == undefined) return;
+			if (value) {
+//				$button.get(0).customdata = value;
+				if (value.title) {
+					$button.html(value.title);
+				} else {
+					$button.html("");
+				};
+				if (value.href) {
+					$button.attr("href", value.href);
+					$button.unbind("click");
+					if (value.target != undefined) {
+						$button.attr("target", value.target);
+					};
+				} else if (value.callback) {
+					$button.attr("href", "javascript:void(0)");
+					$button.bind("click", this, function(e) {
+						var data = e.data._data;
+						if (data.enabled == undefined || data.enabled == true) {
+							if (!e.data._parentExecute) {
+								data.callback(data);
+							}
+							$(e.data).trigger("click", e.data._data);
+						};
+					});
+				};
+				
+				if (value.enabled == undefined || value.enabled == true) {
+					this.setEnabled(true);
+				} else {
+					this.setEnabled(false);
+				};
+				if (value.width != undefined) {
+					$button.width(value.width);
+				};
+			} else {
+				$button.html("");
+				$button.unbind("click");
+				$button.attr("href", "javascript:void(0)");
+			};
+		};
+	};
+	var t_ = new t_button();
+</script>
+</head>
+<body>
+	<div id="wrapper" style="margin-top:50px;">
+    	<a id="t_button" href="javascript:void(0);" class="ste_button" style="text-align:center;"></a>
+        <script type="text/javascript">
+			t_.setData(t_._data);
+		</script>
+    </div>
+</body>
+</html>

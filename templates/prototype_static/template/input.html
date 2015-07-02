@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" /> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+	var t_input = function() {
+		this._constructor();
+	};
+	t_input.prototype._constructor = function() {
+		this._oldText = "";
+		this._changingInterval = 0;
+		this._checkChanging = function() {
+			var text = $.trim($("#t_input input").val());
+			if (text != this._oldText) {
+				var _this = this;
+				clearTimeout(this._changingInterval);
+				this._changingInterval = setTimeout(function() {
+					_this._testChanging(text);
+				}, 1000);
+			}
+		};
+		this._testChanging = function(text) {
+			$(this).trigger("textchanging", text);
+		}
+		
+		this._text = "";
+		this.getText = function() {
+			var $input = $("#t_input input");
+			//if ($input !== undefined) return $input.val();
+			return this._text;
+		};
+		this.setText = function(value, trigger) {
+			this._text = value;
+			
+			$("#t_input input").val(value);
+			if (this._data) this._data[this._textField] = value;
+			if (value === "") {
+				this._showHint();
+			} else {
+				this._hideHint();
+				if (this._passwordState) this._resetInput("password"); //$("#t_input input").attr("type", "password");
+			};
+			if (trigger === undefined || trigger > 0) $(this).trigger("textchanged", this._text);
+		};
+		
+		this._readOnly = false;
+		this.getReadOnly = function() {
+			return this._readOnly;
+		};
+		this.setReadOnly = function(value) {
+			this._readOnly = value;
+			if (value) {
+				$("#t_input input").attr("readonly", "readonly");
+			} else {
+				$("#t_input input").attr("readonly", "");
+			};
+		};
+		
+		this._data = null;
+		this.getData = function() {
+			return this._data;
+		};
+		this.setData = function(value) {
+			if (value == undefined || value == null) return;
+			this._data = value;
+			if (value[this._textField] != undefined || value[this._textField] != null) this.setText(value[this._textField]);
+			if (value.readonly != undefined) this.setReadOnly(value.readonly);
+			if (value.hint != undefined) this.setHintText(value.hint);
+		};
+		
+		this._textField = "text";
+		this.getTextField = function() {
+			return this._textField;
+		};
+		this.setTextField = function(value) {
+			this._textField = value;
+			if (this._data) this._data[value] = this.getText();
+		};
+		
+		this._hintText = "";
+		this.getHintText = function() {
+			return this._hintText;
+		};
+		this.setHintText = function(value) {
+			this._hintText = value;
+			if (this.getText() === "") {
+				this._showHint();
+			};
+		};
+		
+		this._showHint = function() {
+			$("#t_input input").addClass("hint");
+			$("#t_input input").val(this._hintText);
+			this._text = "";
+		};
+		this._hideHint = function() {
+			$("#t_input input").removeClass("hint");
+		};
+		
+		this.setHeight = function(value) {
+			$("#t_input input").height(value);
+		};
+		
+		this._numberState = false;
+		this.getNumberState = function() {
+			return this._numberState;
+		};
+		this.setNumberState = function(value) {
+			this._numberState = value;
+			if (value) {
+				$("#t_input input").bind("keydown", function(e){
+					if (ie) {  // 判断浏览器
+						if (((e.keyCode > 47) && (e.keyCode < 58)) || ((e.keyCode > 95) && (e.keyCode < 106)) || (e.keyCode == 8) || (e.keyCode == 190) || (e.keyCode == 110)) {
+							return true;  
+						} else {  
+							return false;  
+						}
+					} else {
+						if (((e.which > 47) && (e.which < 58)) || ((e.which > 95) && (e.which < 106)) || (e.which == 8) || (e.which == 17) || (e.which == 190) || (e.keyCode == 110)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				});
+			} else {
+				$("#t_input input").unbind("keydown")
+			};
+		};
+		
+		this._passwordState = false;
+		this.getPasswordState = function() {
+			return this._passwordState;
+		};
+		this.setPasswordState = function(value) {
+			this._passwordState = value;
+			if (value) {
+				if (this._text !== "") {
+					this._resetInput("password");
+					//$("#t_input input").attr("type", "password");
+				} else {
+					this._resetInput("text");
+					//$("#t_input input").attr("type", "text");
+				}
+			} else {
+				this._resetInput("text")
+				//$("#t_input input").attr("type", "text");
+			};
+		};
+
+		this._type = "text";
+		this._resetInput = function(type) {
+			if (this._type == type) return;
+			this._type = type;
+			//var t = $("#t_input input").val();
+			$("#t_input div").html("<input type='" + type + "'/>");
+			if (type == "text") {
+				$("#t_input input").val(this._text);
+			}
+			else if (type == "password") {
+				$("#t_input input").focus();
+				$("#t_input input").val(this._text);
+				
+			}
+
+			$("#t_input input").bind("change", this, function(e) {e.data.setText($(this).val());});
+			$("#t_input input").bind("focusin", this, function(e) {if (e.data._numberState) {this.style.imeMode='disabled'} else {this.style.imeMode='auto'}; if (e.data._passwordState) e.data._resetInput("password"); if (e.data._text === "") {e.data._hideHint(); $("#t_input input").val("");}});
+			$("#t_input input").bind("focusout", this, function(e) {if (e.data._passwordState && e.data._text === "") e.data._resetInput("text"); if (e.data._text === "") e.data._showHint()});
+		};
+	};
+
+	var t_ = new t_input();
+</script>
+</head>
+
+<body>
+	<div id="wrapper" style="margin-top:50px;">
+		<div id="t_input" class="ste_input">
+			<div><input type="text" /></div>
+            <script type="text/javascript">
+				t_.setText(t_._text);
+				t_.setPasswordState(t_._passwordState);
+				t_.setNumberState(t_._numberState);
+				$("#t_input input").bind("keydown", function(e) {t_._oldText = $.trim($(e.currentTarget).val());});
+				$("#t_input input").bind("keyup", function(e) {t_._checkChanging()});
+				$("#t_input input").bind("change", function(e) {t_.setText($(this).val());});
+				$("#t_input input").bind("focusin", function(e) {if (t_._numberState) {this.style.imeMode='disabled'} else {this.style.imeMode='auto'}; if (t_._passwordState) t_._resetInput("password"); if (t_._text === "") {t_._hideHint(); $(this).val("");}});
+				$("#t_input input").bind("focusout", function(e) {if (t_._passwordState && t_._text === "") t_._resetInput("text"); if (t_._text === "") t_._showHint()});
+			</script>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+	<script type="text/javascript">
+		var t_mail_content = function() {
+			this._constructor();
+		};
+		t_mail_content.prototype._constructor = function() {
+			this._data = null;
+			this.data = function(value) {
+				if (value !== undefined) {
+					this._data = value;
+					$("#t_mail_content .ste_mail_address").val(value.address);
+					$("#t_mail_content .ste_mail_theme").val(value.theme);
+					$("#t_mail_content .ste_mail_content").val(value.content);
+					$("#t_mail_content .ste_mail_attachment").val(value.attachment);
+				}
+				return this._data;
+			};
+		};
+		var t_ = new t_mail_content();
+	</script>
+</head>
+
+<body>
+	<div>
+    	<table id="t_mail_content" class="ste_mail_content" style="width:100%; table-layout:fixed; font-size:14px;">
+        	<colgroup>
+            	<col width="80"/>
+                <col width="950"/>
+            </colgroup>
+            <tr>
+            	<td style="text-align:right; padding:0 10px; color:#999;">收件人</td>
+                <td>
+                	<div class="clear" style="height:35px; line-height:35px; border:1px solid #e1e1e1; border-right:none; border-bottom:none; background:#f2f2f2; margin:12px auto; float:left;">
+                        <input class="ste_mail_address" style="width:800px; height:100%; border:none; background:none; outline:none; margin:0 10px; float:left;"/>
+                        <a href="javascript:void(0)"><div style="float:left; width:85px; height:100%; padding:0 10px; background:#ddd">
+                            <div style="background:url(../imgs/book.png) left no-repeat; height:100%; padding-right:10px; text-align:right; color:#666;">通讯录</div>
+                        </div></a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td style="text-align:right; padding:0 10px; color:#999;">主题</td>
+                <td>
+                	<div class="clear" style="height:35px; line-height:35px; border:1px solid #e1e1e1; border-right:none; border-bottom:none; background:#f2f2f2; margin:12px auto; float:left;">
+                        <input class="ste_mail_theme" style="width:905px; height:100%; border:none; background:none; outline:none; margin:0 10px; float:left;"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td style="text-align:right; padding:0 10px; color:#999; vertical-align:top; line-height:51px;">内容</td>
+                <td>
+                	<div class="clear" style="line-height:35px; border:1px solid #e1e1e1; border-right:none; border-bottom:none; background:#f2f2f2; margin:12px auto; float:left;">
+                        <textarea class="ste_mail_content" style="width:905px; height:180px; resize:none; border:none; background:none; outline:none; margin:8px 10px; float:left;"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td style="text-align:right; padding:0 10px; color:#999;">附件</td>
+                <td>
+                	<div class="clear" style="height:35px; line-height:35px; border:1px solid #e1e1e1; border-right:none; border-bottom:none; background:#f2f2f2; margin:12px auto; float:left;">
+                        <input class="ste_mail_attachment" style="width:800px; height:100%; border:none; background:none; outline:none; margin:0 10px; float:left;"/>
+                        <a href="javascript:void(0)"><div style="float:left; width:85px; height:100%; padding:0 10px; background:#ddd">
+                            <div style="background:url(../imgs/document.png) left no-repeat; height:100%; padding-right:10px; text-align:right; color:#666;">选 择</div>
+                        </div></a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td style="text-align:right; padding:0 10px; color:#999; vertical-align:top; line-height:51px;"></td>
+                <td>
+                    <div style="margin:20px 0; width:926px;">
+                        <a href="javascript:void(0);"><span style="background:#009efc; color:#fff; font-size:18px; padding:8px 48px; float:right;">发送</span></a>
+                        <a href="javascript:void(0);"><span style="background:#009efc; color:#fff; font-size:18px; padding:8px 48px; float:right; margin-right:24px;">保存</span></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
