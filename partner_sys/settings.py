@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hello_to_viewflow',
+    'common',
     'viewflow',
     'djcelery',
 )

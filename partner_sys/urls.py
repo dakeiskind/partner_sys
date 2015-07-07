@@ -5,7 +5,7 @@ from hello_to_viewflow.views import *
 from django.contrib import admin
 
 urlpatterns = patterns('',
-    url(r'^$', index),
+    url(r'^$', index, {'home':'home.html'}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^helloworld/', include([
         HelloWorldFlow.instance.urls,
