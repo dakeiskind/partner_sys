@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/storm_lib_template.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/storm_lib_template.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/neterror.js"></script>
+<style>
+	.b-item {
+		float:left;
+	}
+	.ste_mailbox_title a {
+		color:#333;
+		line-height:24px;
+	}
+	.ste_mailbox_title.in a.in, .ste_mailbox_title.send a.send, .ste_mailbox_title.temp a.temp {
+		color:#009fec;
+	}
+</style>
+</head>
+
+<body>
+	<div id="wrapper" style="width:auto;">
+    	<div id="h" template="template/header.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
+        <div style="background:#eee; padding:20px 0; min-height:480px;">
+        	<div class="clear" style="width:1250px; margin:0 auto">
+            	<div style="float:left;">
+                	<div id="nl" template="template/navlist.html"></div>
+                </div>
+            	<div style="float:right; width:1164px;">
+                	<div id="mt" style="margin-top:1px;" css="ste_mailbox_title send">
+                    	<div class="ste_mailbox_title in" style="height:51px; line-height:51px; vertical-align:middle; background:#fff; font-size:14px;">
+                            <ul style="float:left; line-height:51px; margin-left:10px; font-size:14px;">
+                                <li style="display:inline-block; padding:0 10px; border-right:1px solid rgba(0, 0, 0, 0.2)"><a class="temp" href="partnerverification.html">潜在合作伙伴申请审核</a></li>
+                                <li style="display:inline-block; padding:0 10px;"><a class="in" href="javascript:void(0);">潜在合作伙伴管理</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div style="margin-top:10px; height:214px;; background:#fff;">
+                    	<div id="params" template="template/params.html" style="padding:30px 20px 0 0; font-size:14px; color:#999;"></div>
+                        <a href="javascript:search();" style="float:right; color:#fff; margin:15px 30px 15px 10px; padding:8px 40px; text-align:center; background:#009fec; font-size:18px;">查询</a>
+                    </div>
+                    <div style="margin-top:10px; background:#fff;">
+                    	<div id="table" template="template/table.html"></div>
+	                    <div style="height:63px; line-height:63px; padding:0 20px;">
+                        	<a href="javascript:void(0);" style="color:#009efc; font-size:18px;">删除</a>
+                            <ul style="border-bottom:1px solid #ebebeb; float:right; font-size:14px;">
+	                            <li style="display:inline-block;"><a class="selected" href="javascript:void(0);"><div style="width:30px; height:65px; background:url(imgs/prev.png) center no-repeat">&nbsp;</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666; font-weight:bold; cursor:default;"><div style="padding:5px; color:#009efc;">1</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">2</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">3</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">4</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">5</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">6</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">7</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">8</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">9</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:4px;">10</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:5px;">11</div></a></li>
+                                <li style="display:inline-block;"><a href="javascript:void(0);" style="color:#666;"><div style="padding:5px;">12</div></a></li>
+                                <li style="display:inline-block;"><a class="selected" href="javascript:void(0);"><div style="width:30px; height:65px; background:url(imgs/next.png) center no-repeat">&nbsp;</div></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div id="f" template="template/footer.html"></div>
+	</div>
+    <script type="text/javascript">registTemplate();</script>
+    <script type="text/javascript">
+		var paramData = {
+			props:{col:3, titleWidth:400, valueWidth:700},
+			datas:[
+				{field:"cName", title:"单位中文名称", type:"input"},
+				{field:"eName", title:"单位英文名称", type:"input"},
+				{field:"serial", title:"营业执照注册号", type:"input"},
+				{field:"contact", title:"联系人名称", type:"input"},
+				{field:"task", title:"税务登记号", type:"input"},
+				{field:"orgNum", title:"组织机构代码", type:"input"}
+			]
+		};
+		params.setData(paramData);
+		
+		var tableData = {
+			head:[
+				{type:"check", field:"checked"},
+				{text:"ID号", field:"id", textAlign:"center"},
+				{text:"单位中文名称", field:"cName", textAlign:"left"},
+				{text:"单位英文名称", field:"eName", textAlign:"center"},
+				{text:"营业执照注册号", field:"serial", textAlign:"center"},
+				{text:"成立时间", field:"date", textAlign:"center"},
+				{text:"员工人数", field:"count", textAlign:"center"},
+				{text:"联系人姓名", field:"contact", textAlign:"center"},
+				{text:"联系电话", field:"phone", textAlign:"center"},
+				{text:"操作", field:"buttons", textAlign:"center", type:"buttons", width:120}
+			],
+			data:[
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=1"}]},
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=2"}]},
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=3"}]},
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=4"}]},
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=5"}]},
+				{checked:false, id:"00001", cName:"中国惠普有限公司", eName:"HP", serial:"220100400029925", date:"1939年", count:"300000人", contact:"张三", phone:"13811111111", buttons:[{title:"查看", href:"partnerinfo.html?id=6"}]},
+				{id:"&nbsp;"},
+				{id:"&nbsp;"}
+			]
+		};
+		table.setData(tableData);
+		
+		function search() {
+			var data = params.getParams();
+			console.log(data);
+		};
+		
+		function showinfo(data) {
+			console.log(data);
+		};
+    </script>
+</body>
+</html>

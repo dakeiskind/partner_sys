@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/storm_lib_template.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/storm_lib_template.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/neterror.js"></script>
+<style>
+	.b-item {
+		float:left;
+	}
+	.ste_mailbox_title a {
+		color:#333;
+		line-height:24px;
+	}
+	.ste_mailbox_title.in a.in, .ste_mailbox_title.send a.send, .ste_mailbox_title.temp a.temp {
+		color:#009fec;
+	}
+	.ste_params .params-td.value {
+		font-size:14px; color:#666;
+	}
+	.ste_params .params-td.value p {
+		line-height:18px;
+	}
+</style>
+</head>
+
+<body>
+	<div id="wrapper" style="width:auto;">
+    	<div id="h" template="template/header.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
+        <div style="background:#eee; padding:20px 0; min-height:480px;">
+        	<div class="clear" style="width:1250px; margin:0 auto">
+            	<div style="float:left;">
+                	<div id="nl" template="template/navlist.html"></div>
+                </div>
+            	<div style="float:right; width:1164px;">
+                	<div id="mt" style="margin-top:1px;" css="ste_mailbox_title send">
+                    	<div class="ste_mailbox_title in" style="height:51px; line-height:51px; vertical-align:middle; background:#fff; font-size:14px;">
+                            <ul style="float:left; line-height:51px; margin-left:10px; font-size:14px;">
+                                <li style="padding:0 10px"><a class="in" href="javascript:void(0);">合作伙伴信息</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div style="margin-top:10px; height:65px; line-height:65px; background:#f3f3f3;">
+                    	<span style="font-weight:bold; font-size:16px; padding:0 20px;">中国惠普有限公司</span>
+                        <a href="javascript:history.back();" style="color:#009efc; margin:0px 20px; text-align:center; font-size:14px;">返回</a>
+                    </div>
+                    <div class="clear" style="background:#fff; min-height:500px; font-size:16px; padding-bottom:40px;">
+                    	<div id="params1" template="template/params.html" style="width:50%; padding-top:50px; box-sizing:border-box; float:left;"></div>
+                    	<div id="params2" template="template/params.html" style="width:50%; padding-top:50px; box-sizing:border-box; float:left;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div id="f" template="template/footer.html"></div>
+	</div>
+    <script type="text/javascript">registTemplate();</script>
+    <script type="text/javascript">
+		var paramData1 = {
+			props:{col:1, titleWidth:300, valueWidth:700},
+			datas:[
+				{field:"uName", title:"用户名"},
+				{field:"cName", title:"单位中文名称"},
+				{field:"eName", title:"单位英文名称"},
+				{field:"legal", title:"法人代表"},
+				{field:"serial", title:"营业执照注册号"},
+				{field:"lisence", title:"营业执照"},
+				{field:"capital", title:"注册资金"},
+				{field:"found", title:"成立时间"},
+				{field:"taxnum", title:"税务登记号"},
+				{field:"tax", titile:"税务登记证"}
+			]
+		};
+		params1.setData(paramData1);
+		var paramData2 = {
+			props:{col:1, titleWidth:200, valueWidth:700},
+			datas:[
+				{field:"address", title:"企业地址"},
+				{field:"netaddress", title:"企业网址"},
+				{field:"phone", title:"企业电话"},
+				{field:"fax", title:"企业传真"},
+				{field:"summary", title:"企业简介", height:120},
+				{field:"contact", title:"联系人姓名"},
+				{field:"phone", title:"联系电话"}
+			]
+		};
+		params2.setData(paramData2);
+		
+		var data = {
+			uName:"测试名称",
+			summary:"<p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>"
+		};
+		params1.setParams(data);
+		params2.setParams(data);
+    </script>
+</body>
+</html>
