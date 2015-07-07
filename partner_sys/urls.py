@@ -3,6 +3,8 @@ from viewflow import views as viewflow
 from hello_to_viewflow.flows import HelloWorldFlow
 from hello_to_viewflow.views import *
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     url(r'^$', index, {'home':'home.html'}),
@@ -13,4 +15,10 @@ urlpatterns = patterns('',
         url('^tasks/$', viewflow.TaskListView.as_view(), name='tasks'),
         url('^queue/$', viewflow.QueueListView.as_view(), name='queue'),
         url('^details/(?P<process_pk>\d+)/$', viewflow.ProcessDetailView.as_view(), name='details'),
-    ], namespace=HelloWorldFlow.instance.namespace), {'flow_cls': HelloWorldFlow}))
+    ], namespace=HelloWorldFlow.instance.namespace), {'flow_cls': HelloWorldFlow}),
+    url(r'^(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),)
+
+
+# urlpatterns += patterns(url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),)
+              #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

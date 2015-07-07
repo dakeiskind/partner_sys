@@ -12,7 +12,9 @@ def index(request, home):
 
     # Fetch particular announcements
 
-    # t = get_template('home.html')
+    t = get_template('home.html')
+    print(t.render())
     # html = t.render(Context({'common_annos':common_annos}))
 
-    return render_to_response(home, {'common_annos':common_annos})
+    # return render_to_response(home, {'common_annos':common_annos})
+    return render_to_response(home)

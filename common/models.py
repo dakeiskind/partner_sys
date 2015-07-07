@@ -17,13 +17,14 @@ class Announcement(models.Model):
     announce_time = models.DateTimeField(null=True, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     read_time = models.IntegerField(default=0)
-    paper_path = models.FilePathField(path=r"/home/chenqi/code_store/pycharm/partner_sys/templates/prototype_static/notice.html", null=True, blank=True)
+    paper_path = models.FilePathField(path=r"/home/chenqi/code_store/pycharm/partner_sys/templates/", null=True, blank=True)
 
     class Meta:
         ordering = ["-announce_time", "-last_modified"]
         # db_table = "announcement"
         get_latest_by = "Announce_time"
 
+    objects = models.Manager()
     drafts = DraftManager()
     formals = FormalManager()
 
