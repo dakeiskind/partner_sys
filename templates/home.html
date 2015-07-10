@@ -14,7 +14,7 @@
 <body>
 	<div id="wrapper" style="width:auto;">
     	<div id="h" template="template/header.html"></div>
-        <div id="n" template="template/navigator.html"></div>
+        <div id="n" template="template/navigator.html"></div>            
         <div style="background:#eee; padding:20px 0; min-height:480px;">
         	<div class="clear" style="width:960px; margin:0 auto">
             	<div style="float:left; width:640px;">
@@ -34,16 +34,16 @@
     <script type="text/javascript">registTemplate();</script>
     <script type="text/javascript">
 		setnavdata(n, 0);
-
+		
 		l.data({regist:function() {
 			window.location.href = "registpartner.html";
 		}, login:function(un, pw) {
 			window.location.href = "home2.html";
 		}});
-
+		
 		l1.data({title: {icon:"../imgs/icon1.png", title:"测试测试", count:20}, items:[
-		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"},
-		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"},
+		{title:"测试测试测试测试", isnew:true, date:"2015.04.12", href:"test.html"},
+		{title:"测试测试测试测试", isnew:true, date:"2015.04.12", href:"http://www.baidu.com"},
 		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"}]});
 		l2.data({title: {icon:"../imgs/icon2.png", title:"测试测试", count:20}, items:[
 		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"},
@@ -57,6 +57,15 @@
 		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"},
 		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"},
 		{title:"测试测试测试测试", isnew:true, date:"2015.04.12"}]});
+		
+		a.data({title:"通知公告", link:"http://www.baidu.com", href:"http://www.baidu.com/s?wd=", datas:[
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"1"},
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"2"},
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"3"},
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"4"},
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"5"},
+			{title:"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试", href:"6"}
+		]})
 	</script>
 </body>
 </html>

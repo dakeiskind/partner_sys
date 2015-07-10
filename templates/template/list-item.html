@@ -8,6 +8,7 @@
 		this._constructor();
 	};
 	t_listitem.prototype._constructor = function() {
+		this._href = null;
 		this._data = null;
 		this.data = function(value) {
 			if (value != undefined) {
@@ -18,7 +19,8 @@
 					$("#t_listitem .item-new").show();
 				} else {
 					$("#t_listitem .item-new").hide();
-				}
+				};
+				this._href = value.href ? value.href : null;
 			};
 			return this._data;
 		};
@@ -38,6 +40,11 @@
 			};
 			return this._selected;
 		};
+		this.link = function() {
+			if (this._href) {
+				window.location.href = this._href;
+			};
+		};
 	};
 	var t_ = new t_listitem();
 </script>
@@ -53,6 +60,7 @@
     </div>
     <script type="text/javascript">
 		$("#t_listitem").bind("click", function(event) {
+			t_.link();
 			$(t_).trigger("itemselected");
 		});
     </script>

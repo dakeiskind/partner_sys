@@ -3,16 +3,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
+<script type="text/javascript">
+	var t_announcement = function() {
+		this._constructor();
+	};
+	t_announcement.prototype._constructor = function() {
+		var _data = null;
+		this.data = function(value) {
+			if (value !== undefined) {
+				this._data = value;
+				var $ul = $("#t_announcement ul");
+				$ul.html("");
+				if (value) {
+					$("#t_announcement div span").html(value.title ? value.title : "");
+					$("#t_announcement div a").attr("href", value.link ? value.link : "");
+					if (value.datas) {
+						for (var i in value.datas) {
+							var data = value.datas[i];
+							$ul.append($('<li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a target="_blank" href="' + (value.href ? value.href : "") + data.href + '" style="color:#666;">' + data.title + '</a></li>'));
+						};
+					};
+				};
+			};
+			return this._data;
+		};
+	};
+	var t_ = new t_announcement();
+</script>
 </head>
 
 <body style="background:#eee">
-	<div style="width:310px; height:395px; background:#fff;">
+	<div id="t_announcement" style="width:310px; height:395px; background:#fff;">
     	<div class="clear" style="border-bottom:1px solid #ebebeb; padding:8px 18px;">
         	<span style="font-size:18px;">通知公告</span>
             <a href="javascript:void(0);" style="color:#48b0ef; margin:4px auto; font-size:14px; float:right;">全部</a>
         </div>
         <ul style="font-size:14px; padding:10px 0;">
-        	<li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a href="javascript:void(0)" style="color:#666;">关于举办2015年山西省评标专家继续教啊啊啊啊</a></li>
+        	<li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a href="javascript:void(0)" a style="color:#666;">关于举办2015年山西省评标专家继续教啊啊啊啊</a></li>
             <li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a href="javascript:void(0)" style="color:#666;">关于举办2015年新增选第一期评标</a></li>
             <li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a href="javascript:void(0)" style="color:#666;">山西省招标投标协会关于更换、增补的方案</a></li>
             <li style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 16px; margin:12px;"><a href="javascript:void(0)" style="color:#666;">《全国招标师职业资格考试大纲》</a></li>

@@ -120,6 +120,31 @@ function showobj(obj) {
 	alert(s);
 };
 
+function post(url, data, success) {
+	$.ajax({
+		url: url,
+		contentType:"application/json; charset=UTF-8",
+		type: "POST",
+		dataType:"json",
+		data: JSON.stringify(data),
+		success: success,
+		error: function(data) {
+			processNetError(data);
+		}
+	});
+};
+
+function get(url, success) {
+	$.ajax({
+		url: url,
+		type: "GET",
+		success: success,
+		error: function(data) {
+			processNetError(data);
+		}
+	});
+};
+
 var global = {};
 
 var JSON = function () {
