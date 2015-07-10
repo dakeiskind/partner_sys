@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'hello_to_viewflow',
     'common',
+    'secur_auth',
     'viewflow',
     'djcelery',
 )

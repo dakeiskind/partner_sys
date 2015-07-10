@@ -6,9 +6,11 @@ from django.template.loader import get_template
 from django.template import Context
 from common.models import Announcement
 import json
+from django.views.decorators.http import *
 
 
 #common announcements list
+@require_GET
 def anno_list(request, page, size):
     try:
         page = int(page)

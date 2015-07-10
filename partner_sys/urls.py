@@ -10,7 +10,8 @@ import common.views as common_views
 urlpatterns = patterns('',
     url(r'^$', index, {'home':'home.html'}),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^common/anno/list/(?P<page>\d+)/(?P<size>\d+)/$', common_views.anno_list),
+    url(r'^common/', include('common.urls')),
+    url(r'^auth/', include('secur_auth.urls')),
     url(r'^helloworld/', include([
         HelloWorldFlow.instance.urls,
         url('^$', viewflow.ProcessListView.as_view(), name='index'),
