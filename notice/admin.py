@@ -2,13 +2,10 @@ __author__ = 'chenqi'
 
 from django.contrib import admin
 from notice.models import *
+from common.admin import AnnouncementAdmin
 
 
-class AnnouncementAdmin(admin.ModelAdmin):
-    # list_display = ('creation_time', 'annouce_time', 'last_modified',)
-    ordering = ('-creation_time', '-announce_time', '-last_modified')
-
-admin.site.register(BiddingNotice, AnnouncementAdmin)
-admin.site.register(BidNotice, AnnouncementAdmin)
-admin.site.register(PriorNotice, AnnouncementAdmin)
-admin.site.register(ChangeNotice, AnnouncementAdmin)
+admin.site.register(Bidding, AnnouncementAdmin)
+admin.site.register(Bid, AnnouncementAdmin)
+admin.site.register(Prior, AnnouncementAdmin)
+admin.site.register(Change, AnnouncementAdmin)

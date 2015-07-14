@@ -1,16 +1,17 @@
 __author__ = 'chenqi'
 
 from django.db import models
-from common.models import Announcement
+from common.models import Notice
 
-class BiddingNotice(Announcement):
+
+class Bidding(Notice):
     pass
 
-class BidNotice(Announcement):
+class Bid(Notice):
     pass
 
-class PriorNotice(Announcement):
+class Prior(Notice):
     pass
 
-class ChangeNotice(Announcement):
+class Change(Notice):
     pass
