@@ -6,11 +6,11 @@ from common.models import Announcement
 class BiddingNotice(Announcement):
     pass
 
-class Bid(Announcement):
+class BidNotice(Announcement):
     pass
 
-class Prior(Announcement):
+class PriorNotice(Announcement):
     pass
 
-class Change(Announcement):
+class ChangeNotice(Announcement):
     pass
