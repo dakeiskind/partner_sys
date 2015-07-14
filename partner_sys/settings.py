@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'hello_to_viewflow',
     'common',
     'secur_auth',
+    'notice',
     'viewflow',
     'djcelery',
 )
