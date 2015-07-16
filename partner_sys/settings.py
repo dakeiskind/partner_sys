@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'common',
     'secur_auth',
     'notice',
+    'partner',
     'viewflow',
     'djcelery',
 )
