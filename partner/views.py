@@ -3,13 +3,17 @@ __author__ = 'wangwei'
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
+from django.http import HttpResponse
+from django.core import serializers
+from django.http import HttpResponse
+import json
 from partner.models import Potential
 from partner.forms import PotentialSearchForm
 
 
 def list_potentials(request):
     potential_list = Potential.objects.all()
-    paginator = Paginator(potential_list, 6) # 6 records / per page
+    paginator = Paginator(potential_list, 2) # 6 records / per page
 
     page = request.GET.get('page') # pageNo
 
@@ -22,7 +26,17 @@ def list_potentials(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         potentials = paginator.page(paginator.num_pages)
 
-    return render_to_response('list.tpl', {'potentials' : potentials})
+        list = []
+        for potential in potentials:
+            list.append(potential.tojson())
+
+        response_data = {}
+        response_data['potentials'] = list
+        response_data['paginator.num_pages'] = potentials.paginator.num_pages
+        response_data['number'] = potentials.number
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    # return render_to_response('list.tpl', {'potentials' : potentials})
 
 
 def search(request):
@@ -69,9 +83,17 @@ def query_potentials(request):
                 # If page is out of range (e.g. 9999), deliver last page of results.
                 potentials = paginator.page(paginator.num_pages)
 
-            print(potentials.number)
+            list = []
+            for potential in potentials:
+                list.append(potential.tojson())
 
-    return render_to_response('search.tpl', {'potentials' : potentials}, context_instance=RequestContext(request))
+            response_data = {}
+            response_data['potentials'] = list
+            response_data['paginator.num_pages'] = potentials.paginator.num_pages
+            response_data['number'] = potentials.number
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
 
 
 def get_potential(request, pid):
@@ -80,5 +102,5 @@ def get_potential(request, pid):
     except Potential.DoesNotExist:
         print('Record Do Not Exists!!!')
 
-    return render_to_response('detail.tpl', {'potential' : potential})
-
+    return HttpResponse(json.dumps(potential.tojson()), content_type='application/json')
+    # return render_to_response('detail.tpl', {'potential' : potential})
