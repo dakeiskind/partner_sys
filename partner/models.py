@@ -99,5 +99,6 @@ class Potential(models.Model):
 
         return d
 
-class SB(models.Model):
-    create = models.DateTimeField()
+
+#class SB(models.Model):
+#    create = models.DateTimeField()

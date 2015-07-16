@@ -6,4 +6,4 @@ from partner.models import *
 admin.site.register(Potential)
 admin.site.register(Contact)
 admin.site.register(Register)
-admin.site.register(SB)
+#admin.site.register(SB)
