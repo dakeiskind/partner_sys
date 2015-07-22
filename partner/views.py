@@ -92,8 +92,8 @@ def query_potentials(request):
             response_data['paginator.num_pages'] = potentials.paginator.num_pages
             response_data['number'] = potentials.number
 
-    return HttpResponse(json.dumps(response_data), content_type='application/json')
-    # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
+    # return HttpResponse(json.dumps(response_data), content_type='application/json')
+    return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
 
 
 def get_potential(request, pid):
