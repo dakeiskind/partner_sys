@@ -3,28 +3,29 @@ __author__ = 'wangwei'
 from django.db import models
 from decimal import *
 import datetime
+from django.contrib.auth.models import User
 
 
-class Register(models.Model):
-    name = models.CharField(max_length=200)
-    password = models.CharField(max_length=60)
-    email = models.EmailField()
-
-    def tojson(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), datetime.datetime):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
-            elif isinstance(getattr(self, attr), datetime.date):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
-            else:
-                d[attr] = getattr(self, attr)
-
-        return d
+# class Register(models.Model):
+#     name = models.CharField(max_length=200)
+#     password = models.CharField(max_length=60)
+#     email = models.EmailField()
+#
+#     def tojson(self):
+#         fields = []
+#         for field in self._meta.fields:
+#             fields.append(field.name)
+#
+#         d = {}
+#         for attr in fields:
+#             if isinstance(getattr(self, attr), datetime.datetime):
+#                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
+#             elif isinstance(getattr(self, attr), datetime.date):
+#                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
+#             else:
+#                 d[attr] = getattr(self, attr)
+#
+#         return d
 
 
 class Contact(models.Model):
@@ -53,7 +54,7 @@ class Contact(models.Model):
         return d
 
 
-class Potential(models.Model):
+class Potential(User):
     zh_name = models.CharField(max_length=200)
     en_name = models.CharField(max_length=200)
     ceo = models.CharField(max_length=200)
@@ -71,10 +72,10 @@ class Potential(models.Model):
     homepage = models.URLField()
     tel = models.CharField(max_length=20)
     fax = models.CharField(max_length=20)
-    email = models.EmailField()
+    post = models.EmailField()
     summary = models.TextField()
     cases = models.TextField()
-    register = models.ForeignKey(Register)
+    # register = models.ForeignKey(Register)
     contact = models.ForeignKey(Contact)
 
     def tojson(self):
@@ -88,8 +89,8 @@ class Potential(models.Model):
                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
             elif isinstance(getattr(self, attr), datetime.date):
                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
-            elif isinstance(getattr(self, attr), Register):
-                d['register'] = getattr(self, attr).tojson()
+            elif isinstance(getattr(self, attr), User):
+                d['user'] = getattr(self, attr).tojson()
             elif isinstance(getattr(self, attr), Contact):
                 d['contact'] = getattr(self, attr).tojson()
             elif isinstance(getattr(self, attr), Decimal):
