@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'secur_auth',
     'notice',
     'partner',
-    'shipment',
     'viewflow',
     'djcelery',
 )
@@ -96,11 +95,30 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../static')
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-    os.path.join(BASE_DIR,  'templates/template'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR,  'templates'),
+            os.path.join(BASE_DIR,  'templates/template'),
+            ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.csrf',
+            ],
+        },
+    },
+]
 
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR,  'templates'),
+#     os.path.join(BASE_DIR,  'templates/template'),
+# )
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_METHODS = (
     'GET',
@@ -131,3 +149,5 @@ BROKER_URL = 'amqp://guest:guest@16.158.49.75:5672/'
 #     ('George Harrison', 'gharrison@example.com'),
 #     ('Ringo Starr', 'ringo@example.com'),
 # )
+
+#APPEND_SLASH = False

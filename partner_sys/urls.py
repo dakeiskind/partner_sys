@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^common/', include('common.urls')),
     url(r'^auth/', include('secur_auth.urls')),
     url(r'^notice/', include('notice.urls')),
+    url(r'^partner/', include('partner.urls')),
     url(r'^helloworld/', include([
         HelloWorldFlow.instance.urls,
         url('^$', viewflow.ProcessListView.as_view(), name='index'),
