@@ -90,7 +90,8 @@ class Potential(User):
             elif isinstance(getattr(self, attr), datetime.date):
                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
             elif isinstance(getattr(self, attr), User):
-                d['user'] = getattr(self, attr).tojson()
+                # d['user'] = getattr(self, attr).tojson()
+                pass
             elif isinstance(getattr(self, attr), Contact):
                 d['contact'] = getattr(self, attr).tojson()
             elif isinstance(getattr(self, attr), Decimal):

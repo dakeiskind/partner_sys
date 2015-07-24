@@ -13,7 +13,7 @@ from partner.forms import PotentialSearchForm
 
 def list_potentials(request):
     potential_list = Potential.objects.all()
-    paginator = Paginator(potential_list, 2) # 6 records / per page
+    paginator = Paginator(potential_list, 6) # 6 records / per page
 
     page = request.GET.get('page') # pageNo
 
@@ -26,14 +26,14 @@ def list_potentials(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         potentials = paginator.page(paginator.num_pages)
 
-        list = []
-        for potential in potentials:
-            list.append(potential.tojson())
+    list = []
+    for potential in potentials:
+        list.append(potential.tojson())
 
-        response_data = {}
-        response_data['potentials'] = list
-        response_data['paginator.num_pages'] = potentials.paginator.num_pages
-        response_data['number'] = potentials.number
+    response_data = {}
+    response_data['potentials'] = list
+    response_data['paginator.num_pages'] = potentials.paginator.num_pages
+    response_data['number'] = potentials.number
 
     return HttpResponse(json.dumps(response_data), content_type='application/json')
     # return render_to_response('list.tpl', {'potentials' : potentials})
@@ -70,7 +70,7 @@ def query_potentials(request):
 
             # pagination
             potential_list = Potential.objects.filter(**kwargs)
-            paginator = Paginator(potential_list, 1) # 6 records / per page
+            paginator = Paginator(potential_list, 6) # 6 records / per page
 
             page = request.GET.get('page') # pageNo
 
@@ -92,8 +92,8 @@ def query_potentials(request):
             response_data['paginator.num_pages'] = potentials.paginator.num_pages
             response_data['number'] = potentials.number
 
-    # return HttpResponse(json.dumps(response_data), content_type='application/json')
-    return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
 
 
 def get_potential(request, pid):
