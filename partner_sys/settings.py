@@ -26,10 +26,15 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ENCODING = 'utf-8'
+
 
 # Application definition
 
 INSTALLED_APPS = (
+    # 'corsheaders',
+    # 'template_debug',
+    # 'material',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'hello_to_viewflow',
     'common',
-    'partner',
     'secur_auth',
     'notice',
     'partner',
@@ -48,6 +52,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -114,13 +119,30 @@ TEMPLATES = [
 #     os.path.join(BASE_DIR,  'templates'),
 #     os.path.join(BASE_DIR,  'templates/template'),
 # )
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    # 'PUT',
+    # 'PATCH',
+    # 'DELETE',
+    # 'OPTIONS'
+)
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
 
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 
 import djcelery
 djcelery.setup_loader()
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+BROKER_URL = 'amqp://guest:guest@16.158.49.75:5672/'
 
 # SEND_BROKEN_LINK_EMAILS =
 # MANAGERS = (

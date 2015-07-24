@@ -5,14 +5,63 @@ from django.views.decorators.http import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-import re
+from partner.models import *
+import re, json
+from flows.potential.flows import PotentialApprovalFlow
+from partner_sys import settings, utils
 
 @require_POST
 def sign_up(request):
-    username = request.POST['username'].strip()
-    password = request.POST['password'].strip()
-    password_confirmed = request.POST['password_confirmed'].strip()
-    email = request.POST['email'].strip()
+
+    if False:
+        c = Contact()
+        c.name = 'contact_01'
+        c.title = 'no title'
+        c.tel = '110'
+        c.mobile = '13800138000'
+        c.idCard = 'mei you'
+        c.email = '1@1.com'
+        c.idCopy = 'ye mei you'
+        c.save()
+
+        p = Potential()
+        p.username = 'potential_01'
+        p.password = '123qwe!@#'
+        p.email = '1@1.com'
+        p.zh_name = u'供应商_01'
+        p.en_name = 'partner_01'
+        p.ceo = 'Whoever'
+        p.scope = 'what?'
+        p.founding = datetime.datetime.today()
+        p.capital = 100000000000
+        p.licence = '0101010101010'
+        p.licenceCopy = 'mei you'
+        p.tax = 'mei you'
+        p.taxCopy = 'ye mei you'
+        p.orgCode = '250'
+        p.orgCodeCopy = 'mei you'
+        p.employees = 3
+        p.address = r'beijing'
+        p.homepage = 'www.bjhjyd.gov.cn'
+        p.tel = '62620202'
+        p.fax = '66668888'
+        p.post = u'北京市630信箱'
+        p.summary = 'blahblahblah....'
+        p.contact = c
+        p.save()
+
+        return JsonResponse({'contact':c.id, 'potential':p.id})
+
+    # username = request.POST['username'].strip()
+    # password = request.POST['password'].strip()
+    # password_confirmed = request.POST['password_confirmed'].strip()
+    # email = request.POST['email'].strip()
+
+    signup = utils.load_json(request)
+    username = signup['username'].strip()
+    password = signup['password'].strip()
+    password_confirmed = signup['password_confirmed'].strip()
+    email = signup['email'].strip()
 
     username_regex = re.compile(r'[\dA-Za-z]+[\dA-Za-z_]*')
     email_regex = re.compile(r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b", re.IGNORECASE)
@@ -44,13 +93,18 @@ def sign_up(request):
     new_user = User.objects.create_user(username, email, password)
     new_user.save()
 
+
+    #launch potential partner approval process
+    # PotentialApprovalFlow.start.run()
+
     return JsonResponse({'info':'success'})
 
 
 @require_POST
 def sign_in(request):
-    username = request.POST['username'].strip()
-    password = request.POST['password'].strip()
+    signin = utils.load_json(request)
+    username = signin['username'].strip()
+    password = signin['password'].strip()
 
     user = authenticate(username=username, password=password)
     if user is None:
@@ -71,14 +125,15 @@ def sign_out(request):
 
 
 @require_POST
-# @login_required()
+@login_required()
 def reset_pwd(request):
     if not request.user.is_authenticated():
         return JsonResponse({'error':u'用户没有登录'})
 
-    old_pass = request.POST['old_pass'].strip()
-    new_pass = request.POST['new_pass'].strip()
-    new_pass_cfm = request.POST['new_pass_cfm'].strip()
+    reset = utils.load_json(request)
+    old_pass = reset['old_pass'].strip()
+    new_pass = reset['new_pass'].strip()
+    new_pass_cfm = reset['new_pass_cfm'].strip()
 
     if old_pass is None or new_pass is None or new_pass_cfm is None:
         return JsonResponse({'error':u'密码不可为空'})
