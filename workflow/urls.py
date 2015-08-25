@@ -1,8 +1,9 @@
 __author__ = 'chenqi'
 
 from django.conf.urls import patterns, url, include
-from hello_to_viewflow.flows import HelloWorldFlow
 from viewflow import views as viewflow
+
+from workflow.potential.flows import HelloWorldFlow
 
 urlpatterns = patterns(
     url('', include([
