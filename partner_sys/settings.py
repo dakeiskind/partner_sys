@@ -32,27 +32,29 @@ ENCODING = 'utf-8'
 # Application definition
 
 INSTALLED_APPS = (
-    # 'corsheaders',
-    # 'template_debug',
-    # 'material',
+    'corsheaders',
+    'template_debug',
+    'material',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello_to_viewflow',
     'common',
-    'secur_auth',
     'notice',
     'partner',
+    'secur_auth',
+    'workflow',
+    'workflow.potential',
+    'shipment',
     'viewflow',
     'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

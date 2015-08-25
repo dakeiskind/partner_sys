@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, url, include
 from viewflow import views as viewflow
-from hello_to_viewflow.flows import HelloWorldFlow
-from hello_to_viewflow.views import *
 from django.contrib import admin
 from django.conf import settings
-from django.conf.urls.static import static
-import common.views as common_views
+from shipment.flows import ShipmentFlow
+
+from workflow.flows import HelloWorldFlow
+from workflow.views import *
 
 urlpatterns = patterns('',
     url(r'^$', index, {'home':'home.html'}),
@@ -14,6 +14,14 @@ urlpatterns = patterns('',
     url(r'^auth/', include('secur_auth.urls')),
     url(r'^notice/', include('notice.urls')),
     url(r'^partner/', include('partner.urls')),
+    url(r'^flow/potential/', include('workflow.potential.urls')),
+    # url(r'^flow/potential/', include([
+    #     RegistryApprovalFlow.instance.urls,
+    #     url('^$', viewflow.ProcessListView.as_view(), name='index'),
+    #     url('^tasks/$', viewflow.TaskListView.as_view(), name='tasks'),
+    #     url('^queue/$', viewflow.QueueListView.as_view(), name='queue'),
+    #     url('^details/(?P<process_pk>\d+)/$', viewflow.ProcessDetailView.as_view(), name='details'),
+    # ], namespace=RegistryApprovalFlow.instance.namespace), {'flow_cls': RegistryApprovalFlow}),
     url(r'^helloworld/', include([
         HelloWorldFlow.instance.urls,
         url('^$', viewflow.ProcessListView.as_view(), name='index'),
@@ -21,6 +29,13 @@ urlpatterns = patterns('',
         url('^queue/$', viewflow.QueueListView.as_view(), name='queue'),
         url('^details/(?P<process_pk>\d+)/$', viewflow.ProcessDetailView.as_view(), name='details'),
     ], namespace=HelloWorldFlow.instance.namespace), {'flow_cls': HelloWorldFlow}),
+    url(r'^shipment/', include([
+        ShipmentFlow.instance.urls,
+        url('^$', viewflow.ProcessListView.as_view(), name='index'),
+        url('^tasks/$', viewflow.TaskListView.as_view(), name='tasks'),
+        url('^queue/$', viewflow.QueueListView.as_view(), name='queue'),
+        url('^details/(?P<process_pk>\d+)/$', viewflow.ProcessDetailView.as_view(), name='details'),
+    ], namespace=ShipmentFlow.instance.namespace), {'flow_cls': ShipmentFlow}),
     url(r'^js/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^imgs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),)
