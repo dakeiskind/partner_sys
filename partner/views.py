@@ -1,15 +1,20 @@
 __author__ = 'wangwei'
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.views.decorators.http import require_GET
+from partner_sys import utils
+from workflow.potential.models import PotentialApprovalTask
+
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
-#from django.http import HttpResponse
-#from django.core import serializers
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from django.http import HttpResponse
 import json
 from partner.models import Potential
 from partner.forms import PotentialSearchForm
-from partner_sys import utils
 
 
 def list_potentials(request):
@@ -107,3 +112,4 @@ def get_potential(request, pid):
 
     return HttpResponse(json.dumps(potential.tojson()), content_type='application/json')
     # return render_to_response('detail.tpl', {'potential' : potential})
+

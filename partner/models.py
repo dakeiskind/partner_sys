@@ -54,12 +54,12 @@ class Contact(models.Model):
         return d
 
 
-class Potential(User):
+class Potential(models.Model):
     zh_name = models.CharField(max_length=200)
     en_name = models.CharField(max_length=200)
     ceo = models.CharField(max_length=200)
     scope = models.CharField(max_length=200)
-    founding = models.DateTimeField()
+    founding = models.DateTimeField(auto_now_add=True)
     capital = models.DecimalField(max_digits=20, decimal_places=2)
     licence = models.CharField(max_length=80)
     licenceCopy = models.URLField()
@@ -75,8 +75,9 @@ class Potential(User):
     post = models.EmailField()
     summary = models.TextField()
     cases = models.TextField()
-    # register = models.ForeignKey(Register)
+    user = models.ForeignKey(User)
     contact = models.ForeignKey(Contact)
+    is_active = models.BooleanField(default=False)
 
     def tojson(self):
         fields = []
