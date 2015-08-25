@@ -1,11 +1,8 @@
-__author__ = 'dAKE'
-
 from viewflow import flow, lock
 from viewflow.base import this, Flow
 from viewflow.contrib import celery
 from viewflow.views import StartProcessView, ProcessView
-
-from . import models, tasks
+from workflow import models, tasks
 
 
 class HelloWorldFlow(Flow):
