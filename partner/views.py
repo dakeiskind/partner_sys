@@ -18,6 +18,15 @@ from partner.forms import PotentialSearchForm
 
 
 '''
+注册合作伙伴列表
+'''
+def list_potentials(request):
+    response_data = _list(request, False, False)
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+'''
 潜在合作伙伴列表
 '''
 def list_potentials(request):
@@ -38,6 +47,15 @@ def list_formals(request):
 def search(request):
     return render_to_response('search.tpl', context_instance=RequestContext(request))
 
+
+'''
+注册合作伙伴查询
+'''
+def query_formals(request):
+    response_data = _query(request, True, True)
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
 '''
 潜在合作伙伴查询
 '''
@@ -48,7 +66,7 @@ def query_potentials(request):
 
 
 '''
-潜在合作伙伴查询
+准入合作伙伴查询
 '''
 def query_formals(request):
     response_data = _query(request, True, True)
