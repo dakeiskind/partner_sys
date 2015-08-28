@@ -165,3 +165,13 @@ def _query(request, is_active, is_formal):
         response_data['number'] = potentials.number
 
         return response_data
+
+'''
+删除
+'''
+def del_formals(request):
+    ids = utils.load_json(request)['ids']
+    for o in ids:
+        Potential.objects.get(id=o['id']).delete()
+
+    return JsonResponse({'info':'success'})
