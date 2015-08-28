@@ -17,8 +17,56 @@ from partner.models import Potential
 from partner.forms import PotentialSearchForm
 
 
+'''
+潜在合作伙伴列表
+'''
 def list_potentials(request):
-    potential_list = Potential.objects.filter(is_active=True, is_formal=False)
+    response_data = _list(request, False)
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    # return render_to_response('list.tpl', {'potentials' : potentials})
+
+
+'''
+正式合作伙伴列表
+'''
+def list_formals(request):
+    response_data = _list(request, True)
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def search(request):
+    return render_to_response('search.tpl', context_instance=RequestContext(request))
+
+'''
+潜在合作伙伴查询
+'''
+def query_potentials(request):
+    response_data = _query(request, False)
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
+
+
+'''
+潜在正式伙伴查询
+'''
+def query_formals(request):
+    response_data = _query(request, True)
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def get_potential(request, pid):
+    try:
+        potential = Potential.objects.get(id=pid)
+    except Potential.DoesNotExist:
+        print('Record Do Not Exists!!!')
+
+    return HttpResponse(json.dumps(potential.tojson()), content_type='application/json')
+    # return render_to_response('detail.tpl', {'potential' : potential})
+
+
+def _list(request, is_formal):
+    potential_list = Potential.objects.filter(is_active=True, is_formal=is_formal)
     paginator = Paginator(potential_list, 6) # 6 records / per page
 
     page = request.GET.get('page') # pageNo
@@ -41,15 +89,10 @@ def list_potentials(request):
     response_data['paginator.num_pages'] = potentials.paginator.num_pages
     response_data['number'] = potentials.number
 
-    return HttpResponse(json.dumps(response_data), content_type='application/json')
-    # return render_to_response('list.tpl', {'potentials' : potentials})
+    return response_data
 
 
-def search(request):
-    return render_to_response('search.tpl', context_instance=RequestContext(request))
-
-
-def query_potentials(request):
+def _query(request, is_formal):
     if request.method == 'POST':
         pd = utils.load_json(request)
 
@@ -76,6 +119,9 @@ def query_potentials(request):
         if pd['orgCode'] is not None and '' != pd['orgCode']:
             kwargs['orgCode__icontains'] = pd['orgCode']
 
+        kwargs['is_active'] = True
+        kwargs['is_formal'] = is_formal
+
         # pagination
         potential_list = Potential.objects.filter(**kwargs)
         paginator = Paginator(potential_list, 6) # 6 records / per page
@@ -100,16 +146,4 @@ def query_potentials(request):
         response_data['paginator.num_pages'] = potentials.paginator.num_pages
         response_data['number'] = potentials.number
 
-    return HttpResponse(json.dumps(response_data), content_type='application/json')
-    # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
-
-
-def get_potential(request, pid):
-    try:
-        potential = Potential.objects.get(id=pid)
-    except Potential.DoesNotExist:
-        print('Record Do Not Exists!!!')
-
-    return HttpResponse(json.dumps(potential.tojson()), content_type='application/json')
-    # return render_to_response('detail.tpl', {'potential' : potential})
-
+        return response_data
