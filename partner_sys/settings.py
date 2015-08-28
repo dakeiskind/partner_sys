@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'secur_auth',
     'workflow',
     'workflow.potential',
+    'workflow.formal',
     'shipment',
     'viewflow',
     'djcelery',
