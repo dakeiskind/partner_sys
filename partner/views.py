@@ -21,7 +21,7 @@ from partner.forms import PotentialSearchForm
 潜在合作伙伴列表
 '''
 def list_potentials(request):
-    response_data = _list(request, False)
+    response_data = _list(request, True, False)
 
     return HttpResponse(json.dumps(response_data), content_type='application/json')
     # return render_to_response('list.tpl', {'potentials' : potentials})
@@ -31,7 +31,7 @@ def list_potentials(request):
 正式合作伙伴列表
 '''
 def list_formals(request):
-    response_data = _list(request, True)
+    response_data = _list(request, True, True)
     return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
@@ -42,7 +42,7 @@ def search(request):
 潜在合作伙伴查询
 '''
 def query_potentials(request):
-    response_data = _query(request, False)
+    response_data = _query(request, True, False)
     return HttpResponse(json.dumps(response_data), content_type='application/json')
     # return render_to_response('search.tpl', {'potentials' : potentials, 'form_data' : pd}, context_instance=RequestContext(request))
 
@@ -51,7 +51,7 @@ def query_potentials(request):
 潜在正式伙伴查询
 '''
 def query_formals(request):
-    response_data = _query(request, True)
+    response_data = _query(request, True, True)
     return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
@@ -65,8 +65,8 @@ def get_potential(request, pid):
     # return render_to_response('detail.tpl', {'potential' : potential})
 
 
-def _list(request, is_formal):
-    potential_list = Potential.objects.filter(is_active=True, is_formal=is_formal)
+def _list(request, is_active, is_formal):
+    potential_list = Potential.objects.filter(is_active=is_active, is_formal=is_formal)
     paginator = Paginator(potential_list, 6) # 6 records / per page
 
     page = request.GET.get('page') # pageNo
@@ -92,7 +92,7 @@ def _list(request, is_formal):
     return response_data
 
 
-def _query(request, is_formal):
+def _query(request, is_active, is_formal):
     if request.method == 'POST':
         pd = utils.load_json(request)
 
@@ -119,7 +119,7 @@ def _query(request, is_formal):
         if pd['orgCode'] is not None and '' != pd['orgCode']:
             kwargs['orgCode__icontains'] = pd['orgCode']
 
-        kwargs['is_active'] = True
+        kwargs['is_active'] = is_active
         kwargs['is_formal'] = is_formal
 
         # pagination
