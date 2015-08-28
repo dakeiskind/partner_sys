@@ -11,15 +11,15 @@ class NoMansManager(models.Manager):
         return super(NoMansManager, self).get_queryset().filter(status='NEW', owner=None)
 
 
-class PotentialApprovalProcess(Process):
+class FormalApprovalProcess(Process):
     potential = models.ForeignKey(Potential, blank=True, null=True)
-    created_by = models.ForeignKey(User, blank=True, null=True, related_name='created_by')
+    created_by = models.ForeignKey(User, blank=True, null=True, related_name='formal_created_by')
     is_approved = models.BooleanField(default=False)
     comment = models.CharField(max_length=1024)
-    approver = models.ForeignKey(User, blank=True, null=True, related_name='approver')
+    approver = models.ForeignKey(User, blank=True, null=True, related_name='formal_approver')
 
 
-class PotentialApprovalTask(Task):
+class FormalApprovalTask(Task):
     class Meta:
         proxy = True
         ordering = ["-created", "-started"]

@@ -18,7 +18,7 @@ from partner.forms import PotentialSearchForm
 
 
 def list_potentials(request):
-    potential_list = Potential.objects.all()
+    potential_list = Potential.objects.filter(is_active=True, is_formal=False)
     paginator = Paginator(potential_list, 6) # 6 records / per page
 
     page = request.GET.get('page') # pageNo

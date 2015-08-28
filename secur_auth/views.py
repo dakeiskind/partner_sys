@@ -55,7 +55,7 @@ def sign_up(request):
     email_reg_m = email_regex.match(email)
     if email_reg_m is None or email_reg_m.group() != email:
         return JsonResponse({'error':u'邮箱地址格式不正确'})
-    try :
+    try:
         user = User.objects.get(email=email)
         if user is not None:
             return JsonResponse({'error':u'此邮箱已被注册'})

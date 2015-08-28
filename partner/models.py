@@ -78,6 +78,7 @@ class Potential(models.Model):
     user = models.ForeignKey(User)
     contact = models.ForeignKey(Contact)
     is_active = models.BooleanField(default=False)
+    is_formal = models.BooleanField(default=False)
 
     def tojson(self):
         fields = []
