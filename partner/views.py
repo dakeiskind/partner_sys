@@ -48,7 +48,7 @@ def query_potentials(request):
 
 
 '''
-潜在正式伙伴查询
+潜在合作伙伴查询
 '''
 def query_formals(request):
     response_data = _query(request, True, True)

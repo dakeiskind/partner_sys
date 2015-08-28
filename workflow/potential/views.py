@@ -339,5 +339,3 @@ def proc_detail(request, process_pk):
         return JsonResponse(response_data)
     else:
         return JsonResponse({'error':u'找不到指定的流程实例'})
-
-
