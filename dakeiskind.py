@@ -15,5 +15,5 @@ def write():
     # print("end...")
 
 # if __name__ == 'main':
-#     print 'This is main process.'
+print 'This is may not be main process.'
 write()
