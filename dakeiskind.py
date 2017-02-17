@@ -14,7 +14,6 @@ def write():
     # f.close()
     # print("end...")
 
-if __name__ == 'main':
-    print 'This is main process.'
-    write()
-
+# if __name__ == 'main':
+#     print 'This is main process.'
+write()
