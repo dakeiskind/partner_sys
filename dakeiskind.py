@@ -14,6 +14,6 @@ def write():
     # f.close()
     # print("end...")
 
-
-write()
+if __name__ == 'main':
+    write()
 
