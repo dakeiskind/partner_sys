@@ -26,3 +26,6 @@ class DakeTestBranch(object):
 
     def test(self):
         pass
+
+    def dake(self):
+        pass
