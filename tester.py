@@ -3,7 +3,7 @@ __author__ = 'chenqi'
 import re, datetime
 from partner_sys import utils
 
-def testre():
+def tester():
 
     str = 'dake_1983-01'
 
@@ -17,7 +17,7 @@ def testre():
     print(regex.findall(str))
 
 
-testre()
+tester()
 
 print(datetime.date.today())
 

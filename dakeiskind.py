@@ -23,3 +23,8 @@ if __name__ == 'main':
 def dake_test():
     #add some codes here
     pass
+
+def stash():
+    # stash here
+    print 'stash on hand'
+    pass
