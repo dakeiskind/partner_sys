@@ -18,3 +18,8 @@ if __name__ == 'main':
     print 'This is main process.\n'
     print 'amend.'
     write()
+
+
+def dake_test():
+    #add some codes here
+    pass
