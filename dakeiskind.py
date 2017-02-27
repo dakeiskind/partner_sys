@@ -18,3 +18,11 @@ if __name__ == 'main':
     print 'This is main process.\n'
     print 'amend.'
     write()
+
+
+class DakeTestBranch(object):
+    def __init__(self):
+        super(DakeTestBranch, self).__init__()
+
+    def test(self):
+        pass
