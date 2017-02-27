@@ -17,7 +17,7 @@ def tester():
     print(regex.findall(str))
 
     # add something
-    pass
+    print 'master finished here'
 
 
 tester()

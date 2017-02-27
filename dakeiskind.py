@@ -29,3 +29,7 @@ class DakeTestBranch(object):
 
     def dake(self):
         pass
+
+    def checkout(self):
+        # master
+        pass
