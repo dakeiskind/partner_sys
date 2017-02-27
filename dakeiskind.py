@@ -28,3 +28,17 @@ def stash():
     # stash here
     print 'stash on hand'
     pass
+
+class DakeTestBranch(object):
+    def __init__(self):
+        super(DakeTestBranch, self).__init__()
+
+    def test(self):
+        pass
+
+    def dake(self):
+        pass
+
+    def checkout(self):
+        # master
+        pass

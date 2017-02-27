@@ -16,6 +16,8 @@ def tester():
     print(m.span())
     print(regex.findall(str))
 
+    # add something
+    print 'master finished here'
 
 tester()
 
